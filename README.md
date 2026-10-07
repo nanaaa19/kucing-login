@@ -11,5 +11,5 @@ npm install
 npm run dev
 
 ## Akun demo
-- Username: `nana`
+- Username: `bebas (isi nama apa saja)`
 - Password: `nana1908`
