@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap');
+
+.stage {
+  --blush: #ffdbe6;
+  --blush-deep: #ffc7d9;
+  --door: #f6b2c6;
+  --door-deep: #ea94ae;
+  --trim: #fff8fa;
+  --ink: #7a4457;
+  --ink-soft: #b58393;
+  --accent: #f48fb1;
+  --cream: #fffaf6;
+  --glow: #ffe9cf;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 12px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 1px 1px, #ffd0de 1.5px, transparent 1.6px) 0 0 / 22px 22px,
+    linear-gradient(#fff3f7, #ffe6ee);
+}
+
+.cloud { position: absolute; font-size: 56px; opacity: .8; animation: drift 14s ease-in-out infinite alternate; }
+.cloud--a { top: 8%; left: 8%; }
+.cloud--b { top: 18%; right: 8%; font-size: 40px; animation-duration: 18s; }
+@keyframes drift { to { transform: translateX(26px); } }
+
+/* ---------- Rumah ---------- */
+.house { width: min(340px, 92vw); position: relative; z-index: 1; }
+.roof {
+  height: 74px; margin: 0 -22px;
+  background: #f7a8bf;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  border-radius: 6px;
+}
+.wall {
+  position: relative; height: 462px;
+  background: var(--blush);
+  border-radius: 0 0 18px 18px;
+  display: flex; justify-content: center; align-items: flex-end;
+  box-shadow: 0 18px 0 -8px #f5b9cb;
+}
+.pot { position: absolute; bottom: 4px; font-size: 28px; }
+.pot--l { left: 6px; } .pot--r { right: 6px; }
+.mat {
+  width: 60%; margin: 8px auto 0; text-align: center;
+  font-size: 12px; letter-spacing: .04em; color: var(--ink-soft);
+  background: #ffe9a8; border-radius: 10px; padding: 3px 0;
+}
+
+/* ---------- Pintu ---------- */
+.doorway {
+  position: relative; width: 262px; height: 414px;
+  border: 10px solid var(--trim); border-bottom: 0;
+  border-radius: 100px 100px 0 0;
+  background: linear-gradient(#ffd9b0, var(--glow));
+  perspective: 900px;
+}
+.inside {
+  position: absolute; inset: 0; border-radius: 90px 90px 0 0;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 20px; font-size: 22px;
+}
+.door {
+  position: absolute; inset: 0; border-radius: 90px 90px 0 0;
+  background: var(--door);
+  transform-origin: left center;
+  transition: transform .9s cubic-bezier(.55, 0, .2, 1), filter .9s;
+  box-shadow: inset 0 0 0 6px var(--door-deep);
+}
+.door::before, .door::after {
+  content: ''; position: absolute; left: 28px; right: 28px;
+  border: 3px solid var(--door-deep); border-radius: 16px;
+}
+.door::before { top: 46px; height: 130px; }
+.door::after { bottom: 20px; height: 150px; }
+.knob {
+  position: absolute; right: 20px; top: 52%;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6d6, #ffcf7a);
+}
+.is-open .door { transform: rotateY(74deg); filter: brightness(.96); }
+
+/* ---------- Papan nama (form) ---------- */
+.sign {
+  position: absolute; z-index: 3; top: 54px; left: 50%;
+  width: 214px; padding: 14px 16px 16px;
+  background: #fffdf7; border: 3px solid #f2b6c7; border-radius: 18px;
+  box-shadow: 0 6px 0 #f2b6c7;
+  transform: translateX(-50%) translateY(-24px) scale(.88);
+  transform-origin: top center;
+  opacity: 0; pointer-events: none;
+}
+.sign--show {
+  opacity: 1; pointer-events: auto;
+  animation: swing 1.1s .55s both cubic-bezier(.3, 1.4, .5, 1);
+}
+@keyframes swing {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-24px) scale(.88) rotate(-7deg); }
+  40%  { opacity: 1; transform: translateX(-50%) translateY(0) scale(1) rotate(5deg); }
+  70%  { transform: translateX(-50%) rotate(-2.5deg); }
+  100% { opacity: 1; transform: translateX(-50%) rotate(0); }
+}
+.rope {
+  position: absolute; top: -24px; width: 3px; height: 26px;
+  background: #e6b48a; border-radius: 2px;
+}
+.rope::before {
+  content: ''; position: absolute; top: -3px; left: -2px;
+  width: 7px; height: 7px; border-radius: 50%; background: #ffcf7a;
+}
+.rope--l { left: 26px; } .rope--r { right: 26px; }
+
+.sign h2 { margin: 0; font-size: 22px; font-weight: 600; text-align: center; }
+.hint { margin: 2px 0 8px; font-size: 12.5px; text-align: center; color: var(--ink-soft); }
+.sign label { display: block; margin: 6px 0 3px 4px; font-size: 12.5px; font-weight: 500; }
+.sign input {
+  width: 100%; box-sizing: border-box; padding: 8px 12px;
+  font: inherit; font-size: 14px; color: var(--ink);
+  background: #fff1f5; border: 2px solid transparent; border-radius: 12px;
+}
+.sign input::placeholder { color: #d9b3bf; }
+.sign input:focus { outline: none; border-color: var(--accent); background: #fff; }
+.error { min-height: 16px; margin: 6px 0 4px; font-size: 12px; text-align: center; color: #d8607f; }
+.btn {
+  width: 100%; padding: 9px; font: inherit; font-weight: 600; font-size: 15px;
+  color: #fff; background: var(--accent); border: 0; border-radius: 14px;
+  box-shadow: 0 4px 0 #dd6f95; cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #dd6f95; }
+.btn--ghost { background: #ffd0de; color: var(--ink); box-shadow: 0 4px 0 #f0aec2; margin-top: 8px; }
+.btn:focus-visible, .cat:focus-visible { outline: 3px solid #ffb703; outline-offset: 3px; }
+.demo { margin: 8px 0 0; font-size: 11px; text-align: center; color: var(--ink-soft); }
+.welcome { text-align: center; padding: 6px 0; }
+.welcome-emoji { margin: 0; font-size: 44px; }
+
+.hearts span {
+  position: absolute; z-index: 5; bottom: 110px; left: calc(30% + var(--i) * 12%);
+  font-size: 20px; animation: float 2.4s calc(var(--i) * .25s) infinite ease-out;
+}
+@keyframes float { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-110px) rotate(14deg); } }
+
+/* ---------- Kucing ---------- */
+.cat {
+  position: absolute; z-index: 4; left: 4px; bottom: -4px;
+  width: 130px; height: 122px; padding: 0; border: 0; background: none; cursor: pointer;
+}
+.cat:disabled { cursor: default; }
+.cat > span { position: absolute; display: block; }
+.cat-body {
+  bottom: 0; left: 19px; width: 92px; height: 66px;
+  background: var(--cream); border-radius: 46px 46px 22px 22px;
+  box-shadow: inset 0 -8px 0 #ffeee6;
+}
+.paw { bottom: 0; width: 26px; height: 18px; border-radius: 13px 13px 6px 6px; background: #fff; box-shadow: 0 0 0 2px #ffe6dc; }
+.paw--l { left: 20px; } .paw--r { right: 20px; }
+.cat-tail {
+  right: 6px; bottom: 14px; width: 18px; height: 60px; border-radius: 12px;
+  background: var(--cream); transform-origin: bottom center;
+  animation: wag 2.2s ease-in-out infinite;
+}
+@keyframes wag { 0%, 100% { transform: rotate(8deg); } 50% { transform: rotate(32deg); } }
+
+.cat-head {
+  top: 0; left: 21px; width: 88px; height: 72px;
+  background: var(--cream); border-radius: 50% 50% 46% 46% / 56% 56% 44% 44%;
+  box-shadow: inset 0 -6px 0 #ffeee6;
+}
+.cat-head > * { position: absolute; display: block; }
+.ear { top: -11px; width: 28px; height: 28px; background: var(--cream); clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+.ear i { position: absolute; left: 7px; right: 7px; bottom: 0; top: 11px; background: #ffc2d4; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+.ear--l { left: 5px; transform: rotate(-14deg); } .ear--r { right: 5px; transform: rotate(14deg); }
+
+.eye {
+  top: 30px; width: 10px; height: 13px; border-radius: 50%; background: #5b3a47;
+  animation: blink 4.5s infinite;
+}
+.eye::after { content: ''; position: absolute; top: 2px; left: 2px; width: 4px; height: 4px; border-radius: 50%; background: #fff; }
+.eye--l { left: 22px; } .eye--r { right: 22px; }
+@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+
+.blush { top: 42px; width: 14px; height: 8px; border-radius: 50%; background: #ffb3c8; opacity: .7; }
+.blush--l { left: 8px; } .blush--r { right: 8px; }
+.nose { top: 41px; left: 50%; margin-left: -4px; width: 8px; height: 6px; border-radius: 4px 4px 6px 6px; background: #f58fae; }
+.mouth {
+  top: 47px; left: 50%; margin-left: -8px; width: 16px; height: 8px;
+  border-bottom: 2.5px solid #b9788a; border-radius: 0 0 12px 12px;
+  clip-path: inset(0 0 0 0);
+}
+.whisker { top: 44px; width: 20px; height: 2px; border-radius: 2px; background: #e8c7cf; }
+.w1 { left: -10px; transform: rotate(8deg); } .w2 { left: -8px; top: 51px; transform: rotate(-6deg); }
+.w3 { right: -10px; transform: rotate(-8deg); } .w4 { right: -8px; top: 51px; transform: rotate(6deg); }
+
+/* Ekspresi: senang (meong & berhasil) */
+.cat--meong .eye, .cat--success .eye {
+  animation: none; height: 7px; background: transparent;
+  border-top: 3.5px solid #5b3a47; border-radius: 12px 12px 0 0; top: 33px;
+}
+.cat--meong .eye::after, .cat--success .eye::after { display: none; }
+.cat--meong .mouth, .cat--success .mouth {
+  height: 10px; background: #ff9db9; border: 0; border-radius: 0 0 10px 10px;
+}
+.cat--meong .cat-head, .cat--success .cat-head { animation: hop .5s ease-out; }
+@keyframes hop { 40% { transform: translateY(-8px); } }
+
+/* Ekspresi: salah password → mata menutup + geleng-geleng */
+.cat--wrong .eye {
+  animation: none; height: 3px; top: 38px; background: #5b3a47; border-radius: 3px;
+}
+.cat--wrong .eye::after { display: none; }
+.cat--wrong .mouth { height: 6px; border: 0; border-top: 2.5px solid #b9788a; border-radius: 12px 12px 0 0; top: 51px; }
+.cat--wrong .cat-head { animation: shake .8s ease-in-out; transform-origin: bottom center; }
+@keyframes shake {
+  0%, 100% { transform: rotate(0); } 15% { transform: rotate(-12deg); } 35% { transform: rotate(10deg); }
+  55% { transform: rotate(-8deg); } 75% { transform: rotate(5deg); }
+}
+
+/* ---------- Balon kata ---------- */
+.bubble {
+  position: absolute; z-index: 4; left: 118px; bottom: 74px; margin: 0;
+  padding: 6px 12px; font-size: 13px; font-weight: 500; white-space: nowrap;
+  background: #fff; border-radius: 14px; box-shadow: 0 3px 0 #f2b6c7;
+  animation: pop .35s cubic-bezier(.3, 1.6, .5, 1);
+}
+.bubble::before {
+  content: ''; position: absolute; left: -6px; bottom: 8px;
+  border: 6px solid transparent; border-right-color: #fff; border-left: 0;
+}
+.bubble--wrong { background: #ffe0e8; color: #c24d6e; }
+.bubble--wrong::before { border-right-color: #ffe0e8; }
+@keyframes pop { from { transform: scale(.5); opacity: 0; } }
+
+@media (max-width: 380px) { .cloud { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .stage *, .stage *::before { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
